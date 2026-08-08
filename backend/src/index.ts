@@ -5,6 +5,10 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 
+import authRoutes from "./routes/auth";
+import productRoutes from "./routes/products";
+import categoryRoutes from "./routes/categories";
+
 dotenv.config();
 
 const app = express();
@@ -22,7 +26,7 @@ app.use(morgan("dev"));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 200,
   message: { error: "Too many requests, please try again later." },
 });
@@ -43,16 +47,24 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-// Placeholder routes (will be expanded)
 app.get("/api", (_req, res) => {
   res.json({
     message: "Welcome to Favour Store API",
     version: "1.0.0",
-    docs: "Coming soon",
+    endpoints: {
+      auth: "/api/auth",
+      products: "/api/products",
+      categories: "/api/categories",
+    },
   });
 });
 
-// 404 handler
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
+
+// 404
 app.use((_req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
