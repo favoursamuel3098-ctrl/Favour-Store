@@ -8,6 +8,9 @@ import rateLimit from "express-rate-limit";
 import authRoutes from "./routes/auth";
 import productRoutes from "./routes/products";
 import categoryRoutes from "./routes/categories";
+import cartRoutes from "./routes/cart";
+import orderRoutes from "./routes/orders";
+import paymentRoutes from "./routes/payments";
 
 dotenv.config();
 
@@ -55,6 +58,9 @@ app.get("/api", (_req, res) => {
       auth: "/api/auth",
       products: "/api/products",
       categories: "/api/categories",
+      cart: "/api/cart",
+      orders: "/api/orders",
+      payments: "/api/payments",
     },
   });
 });
@@ -63,6 +69,9 @@ app.get("/api", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // 404
 app.use((_req, res) => {
