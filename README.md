@@ -1,66 +1,77 @@
-# Favour Store
+# Favour Store v2.2.0
 
-**Digital Products Storefront** by **Favour Samuel Olakunle**
+**Printing Press · Design · Branding**  
+by **Favour Samuel Olakunle**
 
-Sell digital products legitimately:
-- Software licenses & activation keys
-- E-books & PDFs
-- Design templates & UI kits
-- Online courses
-- Access keys & subscriptions
+Custom printing and creative design services:
+- Tumblers & engraved cups
+- Birthday / event posters
+- Business cards & branding
+- Award certificates & frames
+- School badges, pins & name tags
+- Jerseys, mugs, bottle labels
+- Flyers, banners & more
 
 ---
 
-### Business Contact
+### Contact & Payment
+- **WhatsApp:** [09054434502](https://wa.me/2349054434502)
 - **Email:** favoursamuel3098@gmail.com
-- **Phone:** 09054434502
-- **Opay Account:** 7075627260
+- **Opay:** 7075627260 (Favour Samuel Olakunle)
 
 ---
 
-## Project Status
-
-Full-stack digital products e-commerce platform — currently under active development.
-
-### Core Features (Planned)
-- Public storefront (browse, search, buy)
-- Completely separate **Admin Dashboard**
-- Completely separate **User Dashboard**
-- Opay payment integration + webhooks
-- Automatic digital delivery (file downloads, license keys, course access)
-- Order management, refunds & analytics
-- Fully responsive (mobile-first)
+## How customers order
+1. Browse work on the website
+2. Tap **Order on WhatsApp**
+3. Tell us what they need (frame, banner, cards, etc.)
+4. We design → they approve
+5. Pay to Opay **7075627260**
+6. We print & deliver
 
 ---
 
 ## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React + Vite + TypeScript + Tailwind CSS |
-| Backend | Node.js + Express + TypeScript |
-| Database | PostgreSQL + Prisma |
-| Payments | Opay |
-| File Storage | S3-compatible (Cloudflare R2 / AWS S3) |
-| Auth | JWT (Access + Refresh tokens) |
+- Frontend: React + Vite + TypeScript + Tailwind
+- Backend: Node.js + Express + Prisma + PostgreSQL
+- Auth: JWT (Admin / User roles)
+- Payments: Manual Opay transfer
 
 ---
 
-## Development Roadmap
+## Features
+- Home page with services + WhatsApp CTAs
+- Work gallery (samples of print jobs)
+- Contact page
+- Cart + Checkout + Manual Opay payment page
+- Admin dashboard (products, order confirmation)
+- User account dashboard
+- Login / Register
 
-1. Project scaffolding
-2. Database schema & Authentication
-3. Product catalog
-4. Cart & Checkout
-5. Opay payment + webhooks
-6. Digital delivery system
-7. Admin Dashboard
-8. User Dashboard
-9. Polish, testing & Deploy
+---
+
+## Deploy (next step)
+
+### Frontend (Vercel / Netlify)
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+### Backend (Railway / Render / VPS)
+```bash
+cd backend
+npm install
+npx prisma migrate deploy
+npm run seed
+npm run build
+npm start
+```
+
+Set environment variables from `backend/.env.example`.
 
 ---
 
 **Owner:** Favour Samuel Olakunle  
-**Support Email:** favoursamuel3098@gmail.com  
-**Phone:** 09054434502  
-**Opay:** 7075627260
+**Version:** 2.2.0
