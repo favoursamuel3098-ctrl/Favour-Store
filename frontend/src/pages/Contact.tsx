@@ -1,17 +1,12 @@
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [sent, setSent] = useState(false);
+const WHATSAPP = "2349054434502";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // For now just show success (later we can connect to backend)
-    setSent(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
-  };
+export default function Contact() {
+  const whatsappLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
+    "Hello Favour Store! I want to discuss a print/design job."
+  )}`;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -20,12 +15,11 @@ export default function Contact() {
       <main className="flex-1 max-w-4xl mx-auto px-4 py-12 w-full">
         <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
         <p className="text-gray-600 mb-8">
-          We are here to help. Reach out anytime.
+          Printing Press · Design · Branding — Favour Samuel Olakunle
         </p>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          {/* Contact Info */}
-          <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4">
             <div className="bg-white p-6 rounded-2xl shadow-sm border">
               <h2 className="font-semibold text-lg mb-4">Business Details</h2>
               <div className="space-y-3 text-sm">
@@ -34,18 +28,15 @@ export default function Contact() {
                   <span className="font-medium">Favour Samuel Olakunle</span>
                 </p>
                 <p>
-                  <span className="text-gray-500">Email:</span>{" "}
-                  <a
-                    href="mailto:favoursamuel3098@gmail.com"
-                    className="text-brand-600 hover:underline"
-                  >
-                    favoursamuel3098@gmail.com
+                  <span className="text-gray-500">WhatsApp:</span>{" "}
+                  <a href={whatsappLink} className="text-green-600 font-semibold hover:underline">
+                    09054434502
                   </a>
                 </p>
                 <p>
-                  <span className="text-gray-500">Phone:</span>{" "}
-                  <a href="tel:09054434502" className="text-brand-600 hover:underline">
-                    09054434502
+                  <span className="text-gray-500">Email:</span>{" "}
+                  <a href="mailto:favoursamuel3098@gmail.com" className="text-brand-600 hover:underline">
+                    favoursamuel3098@gmail.com
                   </a>
                 </p>
                 <p>
@@ -56,88 +47,37 @@ export default function Contact() {
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border">
-              <h2 className="font-semibold text-lg mb-3">Support Hours</h2>
-              <p className="text-sm text-gray-600">
-                Digital products are delivered automatically 24/7 after payment.
-                Human support is available via email and phone.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl shadow-sm border">
-              <h2 className="font-semibold text-lg mb-3">FAQ</h2>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <p className="font-medium">How fast is delivery?</p>
-                  <p className="text-gray-600">Instant after successful payment.</p>
-                </div>
-                <div>
-                  <p className="font-medium">Can I get a refund?</p>
-                  <p className="text-gray-600">
-                    Yes, within 7 days if the product is defective or undeliverable.
-                  </p>
-                </div>
-              </div>
+              <h2 className="font-semibold text-lg mb-3">What we do</h2>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Custom tumblers & engraved cups</li>
+                <li>• Birthday / event posters & flyers</li>
+                <li>• Business cards & branding</li>
+                <li>• Award certificates & frames</li>
+                <li>• School badges, pins & name tags</li>
+                <li>• Jerseys, mugs, bottle labels</li>
+                <li>• Banners, invoices & more</li>
+              </ul>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border">
-            <h2 className="font-semibold text-lg mb-4">Send a Message</h2>
-
-            {sent ? (
-              <div className="bg-green-50 text-green-700 p-4 rounded-xl text-sm">
-                Thank you! Your message has been received. We will get back to you soon.
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Subject</label>
-                  <input
-                    type="text"
-                    required
-                    value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                    className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Message</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-brand-600 text-white py-2.5 rounded-lg font-medium hover:bg-brand-700 transition"
-                >
-                  Send Message
-                </button>
-              </form>
-            )}
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center flex flex-col justify-center">
+            <div className="text-5xl mb-4">💬</div>
+            <h2 className="text-xl font-bold mb-2">Order on WhatsApp</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              Tell us what you want — frame, banner, cards, jersey, tumbler, poster…
+              We design, you approve, then we print.
+            </p>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-green-500 text-white font-semibold px-8 py-3 rounded-xl hover:bg-green-600"
+            >
+              Chat Now — 09054434502
+            </a>
+            <p className="text-xs text-gray-500 mt-4">
+              Pay to Opay: 7075627260 (Favour Samuel Olakunle)
+            </p>
           </div>
         </div>
       </main>
