@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/admin/Dashboard";
 import UserDashboard from "./pages/account/Dashboard";
+import Payment from "./pages/Payment";
 
 function Home() {
   return (
@@ -80,6 +81,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/cart" element={<Placeholder title="Cart" />} />
+      <Route path="/pay/:reference" element={<Payment />} />
 
       {/* User Dashboard */}
       <Route path="/account" element={<UserDashboard />} />
