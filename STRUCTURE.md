@@ -1,32 +1,45 @@
-# Favour Store — Progress
+# Favour Store — Full Progress
 
-## Done
-- [x] Project scaffold (backend + frontend)
-- [x] Full Prisma schema
-- [x] Express server + security
+## Completed
+
+### Backend
+- [x] Project structure
+- [x] Prisma schema (Users, Products, Categories, Orders, Keys, Downloads, Refunds, Cart)
+- [x] Express API + security (Helmet, CORS, rate limit)
 - [x] JWT Auth (register, login, /me)
 - [x] Role-based access (USER / ADMIN)
-- [x] Product routes + Categories
-- [x] Database seed
+- [x] Products & Categories routes
 - [x] Cart system
 - [x] Checkout + Order creation
 - [x] Opay webhook (payment confirmation + license key assignment)
-- [x] Frontend Home page
-- [x] **Contact page** (with your email, phone, Opay + FAQ)
-- [x] **Products listing page**
+- [x] Database seed (categories + admin)
 
-## Next
-- [ ] Login / Register pages (frontend)
-- [ ] Admin Dashboard UI
-- [ ] User Dashboard UI
-- [ ] Real Opay Cashier integration (needs merchant keys)
-- [ ] Deploy
+### Frontend
+- [x] Home page
+- [x] Products listing page
+- [x] Contact page (email, phone, Opay, FAQ, form)
+- [x] Login page
+- [x] Register page
+- [x] **Admin Dashboard** (dark theme, separate UI)
+- [x] **User Dashboard** (My Account)
+- [x] Navbar + Footer components
 
-## Business Info (already in the system)
+## Still Pending
+- [ ] Full Admin product management UI
+- [ ] Full Orders / Downloads pages
+- [ ] Real Opay Cashier API connection (needs your merchant keys)
+- [ ] Email delivery of digital products
+- [ ] Deploy to production
+
+## Business Info
 - Owner: Favour Samuel Olakunle
 - Email: favoursamuel3098@gmail.com
 - Phone: 09054434502
 - Opay: 7075627260
+
+## Admin Login (after seeding)
+- Email: favoursamuel3098@gmail.com
+- Password: ChangeMe123!
 
 ## Repo
 https://github.com/favoursamuel3098-ctrl/Favour-Store
