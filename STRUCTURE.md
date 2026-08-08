@@ -1,25 +1,27 @@
-# Favour Store — Project Structure
+# Favour Store — Project Structure & Progress
 
 ```
 Favour-Store/
 ├── backend/
 │   ├── prisma/
-│   │   └── schema.prisma      # Database models
+│   │   ├── schema.prisma
+│   │   └── seed.ts
 │   ├── src/
-│   │   ├── index.ts           # Express server entry
-│   │   ├── lib/
-│   │   │   └── prisma.ts
-│   │   ├── middleware/
-│   │   │   └── auth.ts
-│   │   └── utils/
-│   │       └── auth.ts
+│   │   ├── index.ts
+│   │   ├── lib/prisma.ts
+│   │   ├── middleware/auth.ts
+│   │   ├── routes/
+│   │   │   ├── auth.ts
+│   │   │   ├── products.ts
+│   │   │   └── categories.ts
+│   │   └── utils/auth.ts
 │   ├── package.json
 │   ├── tsconfig.json
 │   └── .env.example
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── App.tsx            # Main routes + home page
+│   │   ├── App.tsx
 │   │   ├── main.tsx
 │   │   └── index.css
 │   ├── index.html
@@ -32,21 +34,28 @@ Favour-Store/
 └── STRUCTURE.md
 ```
 
-## Current Progress
+## Progress
 
-✅ Project scaffolded  
-✅ Prisma schema (Users, Products, Orders, Keys, Downloads, Refunds)  
-✅ Basic Express API + health check  
-✅ JWT auth helpers + middleware  
-✅ React + Vite + Tailwind frontend shell  
-✅ Home page with branding & contact info  
+### Done
+- [x] Project scaffold (backend + frontend)
+- [x] Full Prisma schema
+- [x] Express server + security
+- [x] JWT Auth (register, login, /me)
+- [x] Role-based access (USER / ADMIN)
+- [x] Product routes (list + admin CRUD)
+- [x] Category routes
+- [x] Database seed (categories + admin)
+- [x] Frontend home page
 
-## Next Steps
+### Next
+- [ ] Cart system
+- [ ] Checkout + Opay payment
+- [ ] Digital delivery
+- [ ] Admin Dashboard UI
+- [ ] User Dashboard UI
+- [ ] Contact page
+- [ ] Deploy
 
-1. Auth routes (register / login / refresh)
-2. Product routes + admin product management
-3. Cart & Checkout
-4. Opay payment integration
-5. Digital delivery
-6. Full Admin Dashboard
-7. Full User Dashboard
+## Admin Account (after seeding)
+- Email: favoursamuel3098@gmail.com
+- Password: ChangeMe123!
