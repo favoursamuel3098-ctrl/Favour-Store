@@ -3,13 +3,16 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
 import Products from "./pages/Products";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import AdminDashboard from "./pages/admin/Dashboard";
+import UserDashboard from "./pages/account/Dashboard";
 
 function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Hero */}
       <section className="bg-gradient-to-br from-brand-600 to-brand-900 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -27,7 +30,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Trust badges */}
       <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <div className="text-3xl mb-2">⚡</div>
@@ -75,8 +77,23 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<Products />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Placeholder title="Login" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/cart" element={<Placeholder title="Cart" />} />
+
+      {/* User Dashboard */}
+      <Route path="/account" element={<UserDashboard />} />
+      <Route path="/account/orders" element={<Placeholder title="My Orders" />} />
+      <Route path="/account/downloads" element={<Placeholder title="Downloads" />} />
+      <Route path="/account/settings" element={<Placeholder title="Settings" />} />
+
+      {/* Admin Dashboard */}
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/admin/products" element={<Placeholder title="Admin Products" />} />
+      <Route path="/admin/orders" element={<Placeholder title="Admin Orders" />} />
+      <Route path="/admin/users" element={<Placeholder title="Admin Users" />} />
+      <Route path="/admin/refunds" element={<Placeholder title="Admin Refunds" />} />
+
       <Route path="*" element={<Placeholder title="Page not found" />} />
     </Routes>
   );
