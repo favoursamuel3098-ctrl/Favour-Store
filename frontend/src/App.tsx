@@ -6,8 +6,11 @@ import Products from "./pages/Products";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminOrders from "./pages/admin/Orders";
 import UserDashboard from "./pages/account/Dashboard";
 import Payment from "./pages/Payment";
+import Cart from "./pages/Cart";
 
 function Home() {
   return (
@@ -80,7 +83,7 @@ export default function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/cart" element={<Placeholder title="Cart" />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/pay/:reference" element={<Payment />} />
 
       {/* User Dashboard */}
@@ -91,8 +94,8 @@ export default function App() {
 
       {/* Admin Dashboard */}
       <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/admin/products" element={<Placeholder title="Admin Products" />} />
-      <Route path="/admin/orders" element={<Placeholder title="Admin Orders" />} />
+      <Route path="/admin/products" element={<AdminProducts />} />
+      <Route path="/admin/orders" element={<AdminOrders />} />
       <Route path="/admin/users" element={<Placeholder title="Admin Users" />} />
       <Route path="/admin/refunds" element={<Placeholder title="Admin Refunds" />} />
 
