@@ -3,14 +3,11 @@
 **Printing Press · Design · Branding**  
 by **Favour Samuel Olakunle**
 
-Custom printing and creative design services:
-- Tumblers & engraved cups
-- Birthday / event posters
-- Business cards & branding
-- Award certificates & frames
-- School badges, pins & name tags
-- Jerseys, mugs, bottle labels
-- Flyers, banners & more
+### Live website
+**https://favour-store-6t0wsy.v2.appdeploy.ai/**
+
+### Build prompt (for AI / developers)
+See **[BUILD_PROMPT.md](./BUILD_PROMPT.md)** — full specification for App Deploy + GitHub.
 
 ---
 
@@ -21,57 +18,30 @@ Custom printing and creative design services:
 
 ---
 
-## How customers order
-1. Browse work on the website
+### How customers order
+1. Open the website
 2. Tap **Order on WhatsApp**
-3. Tell us what they need (frame, banner, cards, etc.)
-4. We design → they approve
-5. Pay to Opay **7075627260**
-6. We print & deliver
+3. Describe the job (frame, banner, cards, tumbler, etc.)
+4. Pay to Opay **7075627260**
+5. We design, print & deliver
 
 ---
 
-## Tech Stack
-- Frontend: React + Vite + TypeScript + Tailwind
-- Backend: Node.js + Express + Prisma + PostgreSQL
-- Auth: JWT (Admin / User roles)
-- Payments: Manual Opay transfer
+### Services
+Tumblers · Birthday posters · Business cards · Award frames · School badges · Jerseys · Bottle labels · Mugs · Flyers · Banners · Invoices · Logo & branding
 
 ---
 
-## Features
-- Home page with services + WhatsApp CTAs
-- Work gallery (samples of print jobs)
-- Contact page
-- Cart + Checkout + Manual Opay payment page
-- Admin dashboard (products, order confirmation)
-- User account dashboard
-- Login / Register
+### Deployment
+| Method | Purpose |
+|--------|---------|
+| **App Deploy** | Live public site (ready) |
+| **GitHub** | Source code + full-stack backend |
+
+**Note:** Favour Store is a **website**, not an Android APK.  
+APK builds belong to the separate **Barcode** project.
 
 ---
 
-## Deploy (next step)
-
-### Frontend (Vercel / Netlify)
-```bash
-cd frontend
-npm install
-npm run build
-```
-
-### Backend (Railway / Render / VPS)
-```bash
-cd backend
-npm install
-npx prisma migrate deploy
-npm run seed
-npm run build
-npm start
-```
-
-Set environment variables from `backend/.env.example`.
-
----
-
-**Owner:** Favour Samuel Olakunle  
-**Version:** 2.2.0
+**Repo:** https://github.com/favoursamuel3098-ctrl/Favour-Store  
+**Owner:** Favour Samuel Olakunle
