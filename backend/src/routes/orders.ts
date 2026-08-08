@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
-import { authenticate, AuthRequest } from "../middleware/auth";
+import { authenticate, requireRole, AuthRequest } from "../middleware/auth";
 import { randomBytes } from "crypto";
 
 const router = Router();
@@ -16,7 +16,7 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
     const schema = z.object({
       phone: z.string().min(10).optional(),
     });
-    const body = schema.parse(req.body);
+    schema.parse(req.body);
 
     const cartItems = await prisma.cartItem.findMany({
       where: { userId: req.user!.id },
@@ -27,7 +27,6 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
       return res.status(400).json({ error: "Cart is empty" });
     }
 
-    // Validate products still active
     for (const item of cartItems) {
       if (!item.product.isActive) {
         return res.status(400).json({
@@ -44,7 +43,6 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
     const total = subtotal + tax;
     const reference = generateReference();
 
-    // Create order + items in a transaction
     const order = await prisma.$transaction(async (tx) => {
       const newOrder = await tx.order.create({
         data: {
@@ -55,7 +53,7 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
           tax,
           total,
           currency: "NGN",
-          paymentProvider: "opay",
+          paymentProvider: "opay_manual",
         },
       });
 
@@ -72,7 +70,6 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
         });
       }
 
-      // Clear cart
       await tx.cartItem.deleteMany({
         where: { userId: req.user!.id },
       });
@@ -80,11 +77,8 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
       return newOrder;
     });
 
-    // TODO: Initialize Opay payment here and return payment URL
-    // For now we return the order so frontend can proceed
-
     res.status(201).json({
-      message: "Order created",
+      message: "Order created. Please make payment.",
       order: {
         id: order.id,
         reference: order.reference,
@@ -92,10 +86,14 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
         currency: order.currency,
         status: order.status,
       },
-      // When Opay is connected, this will contain the payment URL
       payment: {
-        provider: "opay",
-        message: "Opay integration coming next — order is ready",
+        method: "opay_manual",
+        accountNumber: "7075627260",
+        accountName: "Favour Samuel Olakunle",
+        amount: order.total,
+        currency: "NGN",
+        reference: order.reference,
+        instructions: "Transfer the exact amount to the Opay account above. Use the Order Reference as narration if possible. Then click 'I have paid'.",
       },
     });
   } catch (err: any) {
@@ -107,17 +105,120 @@ router.post("/checkout", authenticate, async (req: AuthRequest, res) => {
   }
 });
 
+// Customer marks "I have paid"
+router.post("/:reference/mark-paid", authenticate, async (req: AuthRequest, res) => {
+  try {
+    const order = await prisma.order.findUnique({
+      where: { reference: req.params.reference },
+    });
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    if (order.userId !== req.user!.id) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    if (order.status !== "PENDING") {
+      return res.status(400).json({ error: "Order is not pending payment" });
+    }
+
+    // Keep status as PENDING but we can treat it as "awaiting confirmation"
+    // Admin will later confirm and mark as PAID
+    res.json({
+      message: "Thank you! We have received your payment notification. Please wait for confirmation. You will get your product once payment is verified.",
+      order: {
+        reference: order.reference,
+        status: order.status,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update order" });
+  }
+});
+
+// Admin confirms payment and fulfills order
+router.post(
+  "/:reference/confirm-payment",
+  authenticate,
+  requireRole("ADMIN"),
+  async (req: AuthRequest, res) => {
+    try {
+      const order = await prisma.order.findUnique({
+        where: { reference: req.params.reference },
+        include: { items: true },
+      });
+
+      if (!order) {
+        return res.status(404).json({ error: "Order not found" });
+      }
+
+      if (order.status === "PAID" || order.status === "FULFILLED") {
+        return res.json({ message: "Order already confirmed", order });
+      }
+
+      await prisma.$transaction(async (tx) => {
+        await tx.order.update({
+          where: { id: order.id },
+          data: {
+            status: "PAID",
+            paidAt: new Date(),
+          },
+        });
+
+        for (const item of order.items) {
+          if (item.deliveryType === "LICENSE_KEY" && item.productId) {
+            const availableKey = await tx.productKey.findFirst({
+              where: { productId: item.productId, isUsed: false },
+            });
+
+            if (availableKey) {
+              await tx.productKey.update({
+                where: { id: availableKey.id },
+                data: { isUsed: true, usedAt: new Date() },
+              });
+              await tx.orderItem.update({
+                where: { id: item.id },
+                data: { productKeyId: availableKey.id },
+              });
+            }
+          }
+
+          if (item.productId) {
+            await tx.product.update({
+              where: { id: item.productId },
+              data: { salesCount: { increment: item.quantity } },
+            });
+          }
+        }
+
+        await tx.order.update({
+          where: { id: order.id },
+          data: {
+            status: "FULFILLED",
+            fulfilledAt: new Date(),
+          },
+        });
+      });
+
+      res.json({ message: "Payment confirmed and order fulfilled" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to confirm payment" });
+    }
+  }
+);
+
 // Get user's orders
 router.get("/my", authenticate, async (req: AuthRequest, res) => {
   try {
     const orders = await prisma.order.findMany({
       where: { userId: req.user!.id },
-      include: {
-        items: true,
-      },
+      include: { items: true },
       orderBy: { createdAt: "desc" },
     });
-
     res.json({ orders });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch orders" });
@@ -130,11 +231,7 @@ router.get("/:reference", authenticate, async (req: AuthRequest, res) => {
     const order = await prisma.order.findUnique({
       where: { reference: req.params.reference },
       include: {
-        items: {
-          include: {
-            productKey: true,
-          },
-        },
+        items: { include: { productKey: true } },
       },
     });
 
@@ -142,12 +239,24 @@ router.get("/:reference", authenticate, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: "Order not found" });
     }
 
-    // Only owner or admin can view
     if (order.userId !== req.user!.id && req.user!.role !== "ADMIN") {
       return res.status(403).json({ error: "Access denied" });
     }
 
-    res.json({ order });
+    res.json({
+      order,
+      payment:
+        order.status === "PENDING"
+          ? {
+              method: "opay_manual",
+              accountNumber: "7075627260",
+              accountName: "Favour Samuel Olakunle",
+              amount: order.total,
+              currency: "NGN",
+              reference: order.reference,
+            }
+          : null,
+    });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch order" });
   }
