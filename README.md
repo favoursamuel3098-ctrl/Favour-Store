@@ -1,47 +1,44 @@
-# Favour Store v2.2.0
+# Favour Store v3 — Temu-style Print Shop
 
-**Printing Press · Design · Branding**  
-by **Favour Samuel Olakunle**
+**Live site (install / open on phone):**  
+**https://favour-store-mbsqij.v2.appdeploy.ai/**
 
-### Live website
-**https://favour-store-6t0wsy.v2.appdeploy.ai/**
-
-### Build prompt (for AI / developers)
-See **[BUILD_PROMPT.md](./BUILD_PROMPT.md)** — full specification for App Deploy + GitHub.
+Shop like Temu: categories, sizes, colors/finishes, prices, cart, checkout, Opay payment.
 
 ---
 
-### Contact & Payment
-- **WhatsApp:** [09054434502](https://wa.me/2349054434502)
-- **Email:** favoursamuel3098@gmail.com
-- **Opay:** 7075627260 (Favour Samuel Olakunle)
+### Owner
+- **Favour Samuel Olakunle**
+- WhatsApp: [09054434502](https://wa.me/2349054434502)
+- Email: favoursamuel3098@gmail.com
+- Opay: **7075627260**
 
 ---
 
-### How customers order
-1. Open the website
-2. Tap **Order on WhatsApp**
-3. Describe the job (frame, banner, cards, tumbler, etc.)
-4. Pay to Opay **7075627260**
-5. We design, print & deliver
+### Categories & products
+Drinkware · Prints · Branding · Apparel · Badges · Frames · Events · Design · Stationery
+
+Examples: tumblers (sizes/colors), posters & banners (A3/A2/A1), business cards, school badges, jerseys (S–XXL), photo mugs, frames, logo design, stickers, ID cards.
+
+### Customer flow
+1. Open live link on phone
+2. Shop → pick product → choose **size** & **color**
+3. Add to cart → Checkout
+4. Pay Opay **7075627260** (Favour Samuel Olakunle)
+5. Tap **I have paid** / WhatsApp notify
 
 ---
 
-### Services
-Tumblers · Birthday posters · Business cards · Award frames · School badges · Jerseys · Bottle labels · Mugs · Flyers · Banners · Invoices · Logo & branding
+### Install on phone
+1. Open https://favour-store-mbsqij.v2.appdeploy.ai/
+2. Chrome menu → **Add to Home screen** (optional)
+3. Share the link with customers
+
+No APK — this is a website shop (same as Temu in the browser).
 
 ---
 
-### Deployment
-| Method | Purpose |
-|--------|---------|
-| **App Deploy** | Live public site (ready) |
-| **GitHub** | Source code + full-stack backend |
+### GitHub
+https://github.com/favoursamuel3098-ctrl/Favour-Store
 
-**Note:** Favour Store is a **website**, not an Android APK.  
-APK builds belong to the separate **Barcode** project.
-
----
-
-**Repo:** https://github.com/favoursamuel3098-ctrl/Favour-Store  
-**Owner:** Favour Samuel Olakunle
+See also `BUILD_PROMPT.md` for full build specification.
